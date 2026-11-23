@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CALYPSO – Blog Spotify</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Anton&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--panel:#141414;--panel2:#1c1c1c;--line:#2a2a2a;--g:#1ed760;--gd:#12a24a;--txt:#f2f2f2;--mut:#a3a3a3}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Space Grotesk',system-ui,sans-serif;background:var(--bg);color:var(--txt);line-height:1.7;display:grid;grid-template-columns:260px 1fr;min-height:100vh;padding-bottom:84px}
+aside{position:sticky;top:0;height:100vh;background:#000;border-right:1px solid var(--line);padding:28px 20px;overflow-y:auto}
+.logo{font-family:'Anton',Impact,sans-serif;font-size:38px;letter-spacing:2px;color:var(--g);line-height:1}
+.sub{font-size:12px;color:var(--mut);margin:6px 0 26px}
+.lbl{font-size:11px;letter-spacing:2px;color:var(--mut);margin:18px 10px 8px;text-transform:uppercase}
+aside a{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:10px;color:var(--mut);text-decoration:none;cursor:pointer;font-weight:500;transition:.2s}
+aside a span{font-size:12px;width:26px;height:26px;border-radius:6px;background:var(--panel2);display:grid;place-items:center;color:var(--g);font-weight:700;flex:none}
+aside a:hover{color:#fff;background:var(--panel)}
+aside a.active{color:#000;background:var(--g)}
+aside a.active span{background:#00000025;color:#000}
+main{min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 40px;background:#0a0a0acc;backdrop-filter:blur(12px);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line)}
+.top p{color:var(--mut);font-size:14px}
+#searchForm{display:flex;gap:8px}
+#q{background:var(--panel2);border:1px solid var(--line);border-radius:30px;padding:11px 20px;color:#fff;font:inherit;width:240px;outline:none}
+#q:focus{border-color:var(--g)}
+.btn{background:var(--g);color:#000;border:0;border-radius:30px;padding:11px 26px;font:700 15px 'Space Grotesk',sans-serif;cursor:pointer;transition:.2s}
+.btn:hover{transform:scale(1.05);background:#3be477}
+.btn.ghost{background:transparent;color:#fff;border:1px solid #555}
+.btn.ghost:hover{border-color:var(--g);color:var(--g)}
+.wrap{padding:36px 40px;max-width:1000px}
+.hero{border-radius:24px;padding:48px;background:linear-gradient(135deg,#1ed76055,#0a0a0a 70%),var(--panel);border:1px solid var(--line);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;border:34px solid #1ed76022}
+.hero small{color:var(--g);letter-spacing:3px;font-weight:700;font-size:12px}
+.hero h1{font-size:46px;line-height:1.1;margin:12px 0 16px;max-width:560px}
+.hero p{color:#cfcfcf;max-width:520px;margin-bottom:24px}
+h2.sec{margin:38px 0 16px;font-size:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.card{background:var(--panel);border-radius:16px;padding:16px;cursor:pointer;transition:.25s;border:1px solid transparent}
+.card:hover{background:var(--panel2);border-color:var(--g);transform:translateY(-4px)}
+.cover{aspect-ratio:1;border-radius:12px;display:grid;place-items:center;font:700 64px 'Anton',sans-serif;color:#000;margin-bottom:14px;background:linear-gradient(135deg,var(--g),#0b6b30)}
+.card:nth-child(even) .cover{background:linear-gradient(135deg,#0b6b30,var(--g))}
+.card h3{font-size:17px;line-height:1.3}
+.card p{font-size:13px;color:var(--mut);margin-top:4px}
+article{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:40px 44px}
+.pill{display:inline-block;border:1px solid var(--g);color:var(--g);font-size:12px;font-weight:700;padding:3px 14px;border-radius:20px;letter-spacing:1px}
+article h2{font-size:38px;line-height:1.15;margin:12px 0 18px}
+article h3{margin:26px 0 8px;color:var(--g)}
+article p,article li{color:#dcdcdc;margin-bottom:10px}
+article ul{padding-left:22px}
+article b{color:#fff}
+.quote{border-left:4px solid var(--g);background:var(--panel2);padding:16px 22px;border-radius:0 12px 12px 0;margin:18px 0;font-style:italic}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.chip{background:var(--panel2);border:1px solid var(--line);padding:8px 16px;border-radius:30px;font-size:14px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
+th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--g);font-size:12px;letter-spacing:1.5px;text-transform:uppercase}
+.pager{display:flex;justify-content:space-between;margin-top:32px;gap:10px}
+.members{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.member{background:var(--panel2);border-radius:16px;padding:22px;text-align:center}
+.avatar{width:70px;height:70px;border-radius:50%;margin:0 auto 10px;background:var(--g);color:#000;display:grid;place-items:center;font:700 26px 'Space Grotesk'}
+.member small{color:var(--mut)}
+.empty{color:var(--mut);padding:20px 0}
+.player{position:fixed;left:0;right:0;bottom:0;background:#000;border-top:1px solid var(--line);padding:12px 28px;display:grid;grid-template-columns:260px 1fr 260px;gap:20px;align-items:center;z-index:10}
+.np{display:flex;gap:12px;align-items:center;min-width:0}
+.np .mini{width:46px;height:46px;border-radius:8px;background:linear-gradient(135deg,var(--g),#0b6b30);display:grid;place-items:center;color:#000;font:700 22px 'Anton'}
+.np b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.np small{color:var(--mut)}
+.ctrl{display:flex;flex-direction:column;align-items:center;gap:6px}
+.ctrl div{display:flex;gap:14px}
+.ctrl button{background:none;border:0;color:#fff;font-size:20px;cursor:pointer}
+.ctrl button:hover{color:var(--g)}
+.bar{width:100%;height:5px;background:#333;border-radius:5px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--g);transition:width .1s}
+.time{text-align:right;color:var(--mut);font-size:13px}
+@media(max-width:860px){
+ body{grid-template-columns:1fr}
+ aside{position:static;height:auto;display:flex;flex-wrap:wrap;gap:4px;padding:16px}
+ aside .logo,aside .sub,aside .lbl{width:100%}
+ .top,.wrap{padding-left:18px;padding-right:18px}
+ .hero{padding:28px}.hero h1{font-size:32px}
+ article{padding:24px}
+ .player{grid-template-columns:1fr auto}.time{display:none}.ctrl .bar{display:none}
+}
+</style>
+</head>
+<body>
+
+<aside>
+  <div class="logo">CALYPSO</div>
+  <div class="sub">Blog Kelompok · Aplikasi Komputer</div>
+  <div class="lbl">Menu</div>
+  <div id="menu"></div>
+  <div class="lbl">Daftar Isi</div>
+  <div id="toc"></div>
+</aside>
+
+<main>
+  <div class="top">
+    <p>Lima pemikiran, satu ruang untuk berbagi ide dan inspirasi.</p>
+    <form id="searchForm"><input id="q" placeholder="Cari artikel…" autocomplete="off"><button class="btn">Cari</button></form>
+  </div>
+  <div class="wrap" id="content"></div>
+</main>
+
+<div class="player">
+  <div class="np"><div class="mini" id="mini">A</div><div style="min-width:0"><b id="npTitle">Beranda</b><small id="npTag">Sedang dibaca</small></div></div>
+  <div class="ctrl"><div><button id="prev" title="Sebelumnya">⏮</button><button id="next" title="Berikutnya">⏭</button></div><div class="bar"><i id="prog"></i></div></div>
+  <div class="time" id="pct">0% dibaca</div>
+</div>
+
+<script>
+const articles = [
+ {id:'pengantar', tag:'Pembuka', nav:'Kata Pengantar', num:'•', title:'Kata Pengantar',
+  desc:'Sambutan singkat dari kelompok sebelum masuk ke pembahasan.',
+  body:`<p>Teknologi komputer berkembang pesat dan aplikasi kini menjadi bagian penting kehidupan modern: untuk bekerja, belajar, berkomunikasi, menjaga keamanan data, hingga mencari hiburan.</p>
+  <p>Dalam blog ini, kelompok kami mengangkat <b>Spotify</b> sebagai contoh aplikasi hiburan yang dekat dengan keseharian kita. Semoga tulisan sederhana ini mudah dipahami dan menginspirasi pembaca.</p>
+  <div class="quote">“Musik bukan sekadar hiburan; ia adalah teknologi yang menemani setiap momen kita.”</div>`},
+
+ {id:'pengertian', tag:'No 1', nav:'Pengertian', num:'1', title:'Apa Itu Aplikasi Komputer?',
+  desc:'Pengertian dan lima jenis aplikasi komputer.',
+  body:`<p>Aplikasi komputer adalah perangkat lunak yang dirancang untuk melakukan tugas spesifik, seperti pemrosesan data, komunikasi, atau hiburan.</p>
+  <h3>Jenis-jenis aplikasi</h3>
+  <table><tr><th>Kategori</th><th>Contoh</th></tr>
+  <tr><td>Produktivitas</td><td>Microsoft Office, Google Workspace</td></tr>
+  <tr><td>Kreativitas & Desain</td><td>Adobe Photoshop, Canva</td></tr>
+  <tr><td>Komunikasi</td><td>Zoom, Microsoft Teams</td></tr>
+  <tr><td>Hiburan</td><td><b>Spotify</b>, Netflix</td></tr>
+  <tr><td>Keamanan</td><td>Antivirus, VPN</td></tr></table>`},
+
+ {id:'manfaat', tag:'No 2', nav:'Manfaat', num:'2', title:'Manfaat Aplikasi dalam Kehidupan',
+  desc:'Produktivitas, komunikasi, belajar, dan keamanan data.',
+  body:`<ul><li><b>Produktivitas:</b> membuat dokumen, presentasi, dan mengelola proyek lebih cepat.</li>
+  <li><b>Komunikasi:</b> Zoom dan WhatsApp menghubungkan kita dari jarak jauh.</li>
+  <li><b>Pembelajaran:</b> Duolingo, Coursera, dan Khan Academy memudahkan belajar kapan saja.</li>
+  <li><b>Keamanan:</b> antivirus dan VPN melindungi data pribadi.</li>
+  <li><b>Hiburan:</b> Spotify menyediakan musik dan podcast untuk fokus, olahraga, maupun relaksasi.</li></ul>`},
+
+ {id:'spotify', tag:'No 3', nav:'Mengenal Spotify', num:'3', title:'Mengenal Spotify',
+  desc:'Cara kerja, fitur, dan pendapat pribadi tentang Spotify.',
+  body:`<p>Spotify adalah layanan streaming musik dan podcast asal Swedia yang diluncurkan pada 2008. Pengguna dapat mendengarkan jutaan lagu secara <i>online</i> tanpa membeli atau mengunduh satu per satu.</p>
+  <h3>Cara kerja dasar</h3>
+  <p>Lagu disimpan di server (<i>cloud</i>) lalu dikirim ke perangkat lewat internet secara <i>streaming</i>. Algoritma merekomendasikan lagu berdasarkan riwayat dengar, sehingga tiap pengguna mendapat pengalaman berbeda.</p>
+  <h3>Fitur unggulan</h3>
+  <div class="chips"><span class="chip">🎧 Discover Weekly</span><span class="chip">🎁 Wrapped</span><span class="chip">📃 Playlist</span><span class="chip">🎙️ Podcast</span><span class="chip">⬇️ Mode Offline</span><span class="chip">👥 Blend & Jam</span></div>
+  <h3>Free vs Premium</h3>
+  <table><tr><th>Aspek</th><th>Free</th><th>Premium</th></tr>
+  <tr><td>Iklan</td><td>Ada</td><td>Tanpa iklan</td></tr>
+  <tr><td>Unduh offline</td><td>Tidak</td><td>Ya</td></tr>
+  <tr><td>Pilih lagu bebas</td><td>Terbatas</td><td>Bebas</td></tr>
+  <tr><td>Kualitas audio</td><td>Standar</td><td>Lebih tinggi</td></tr></table>
+  <p><small>Fitur dan harga dapat berubah; cek aplikasi resmi untuk info terbaru.</small></p>
+  <h3>Rekomendasi pribadi</h3>
+  <div class="quote">Fitur favorit kami adalah Playlist dan Wrapped. Cocok menemani belajar, mengerjakan tugas, atau sekadar santai.</div>`},
+
+ {id:'tantangan', tag:'No 4', nav:'Tantangan', num:'4', title:'Tantangan Penggunaan Aplikasi',
+  desc:'Keamanan siber, biaya langganan, dan kebutuhan internet.',
+  body:`<ul><li><b>Keamanan akun:</b> gunakan kata sandi kuat dan jangan berbagi akun sembarangan.</li>
+  <li><b>Biaya langganan:</b> fitur penuh Spotify memerlukan Premium.</li>
+  <li><b>Kuota internet:</b> streaming menghabiskan data; manfaatkan mode offline dengan Wi-Fi.</li>
+  <li><b>Privasi data:</b> baca izin aplikasi dan unduh hanya dari sumber resmi.</li></ul>
+  <p>Pilih aplikasi yang aman, aktifkan verifikasi dua langkah, dan hindari versi bajakan (<i>mod</i>) yang berisiko malware.</p>`},
+
+ {id:'kesimpulan', tag:'No 5', nav:'Kesimpulan', num:'5', title:'Kesimpulan',
+  desc:'Ringkasan manfaat utama dan ajakan untuk terus belajar.',
+  body:`<p>Aplikasi komputer mempermudah hidup di banyak bidang. Spotify menunjukkan bagaimana teknologi membuat hiburan lebih personal, praktis, dan mudah diakses.</p>
+  <p>Mari terus belajar dan mencoba aplikasi baru yang bermanfaat, sambil tetap bijak menjaga keamanan data. Terima kasih sudah membaca! 💚</p>`}
+];
+const members = ['Anggota 1','Anggota 2','Anggota 3','Anggota 4','Anggota 5'];
+const $ = s => document.querySelector(s);
+const content = $('#content');
+
+$('#menu').innerHTML = `<a data-r="home"><span>⌂</span>Beranda</a><a data-r="anggota"><span>★</span>Anggota</a>`;
+$('#toc').innerHTML = articles.map(a => `<a data-r="${a.id}"><span>${a.num}</span>${a.nav}</a>`).join('');
+document.addEventListener('click', e => { const el = e.target.closest('[data-r]'); if (el) location.hash = el.dataset.r; });
+
+const card = a => `<div class="card" data-r="${a.id}"><div class="cover">${a.num==='•'?'A':a.num}</div><h3>${a.title}</h3><p>${a.desc}</p></div>`;
+let cur = -1;
+
+function setPlayer(title, tag, ch){ $('#npTitle').textContent = title; $('#npTag').textContent = tag; $('#mini').textContent = ch; }
+
+function render(route){
+  document.querySelectorAll('aside a').forEach(l => l.classList.toggle('active', l.dataset.r === route));
+  cur = articles.findIndex(a => a.id === route);
+
+  if (route === 'anggota'){
+    content.innerHTML = `<article><span class="pill">TIM</span><h2>Anggota Kelompok</h2><div class="members">${members.map((m,i)=>`<div class="member"><div class="avatar">${i+1}</div><b>${m}</b><br><small>Ganti dengan nama & NIM</small></div>`).join('')}</div></article>`;
+    setPlayer('Anggota Kelompok','Tim CALYPSO','★');
+  } else if (cur >= 0){
+    const a = articles[cur], p = articles[cur-1], n = articles[cur+1];
+    content.innerHTML = `<article><span class="pill">${a.tag.toUpperCase()}</span><h2>${a.title}</h2>${a.body}
+      <div class="pager">${p?`<button class="btn ghost" data-r="${p.id}">← ${p.nav}</button>`:'<span></span>'}${n?`<button class="btn" data-r="${n.id}">${n.nav} →</button>`:''}</div></article>`;
+    setPlayer(a.title, a.tag, a.num==='•'?'A':a.num);
+  } else {
+    content.innerHTML = `<div class="hero"><small>BLOG KELOMPOK · TEKNOLOGI</small><h1>Spotify di Balik Hiburan Digital</h1>
+      <p>Kenali aplikasi komputer, manfaatnya dalam kehidupan sehari-hari, dan bagaimana Spotify menghadirkan pengalaman musik modern melalui teknologi.</p>
+      <button class="btn" data-r="pengantar">▶ Mulai Baca</button></div>
+      <h2 class="sec">Artikel</h2><div class="grid">${articles.map(card).join('')}</div>`;
+    setPlayer('Beranda','Pilih artikel untuk dibaca','♪');
+  }
+  window.scrollTo({top:0});
+  progress();
+}
+
+function progress(){
+  const h = document.documentElement.scrollHeight - innerHeight;
+  const p = h > 0 ? Math.min(100, Math.round(scrollY / h * 100)) : 100;
+  $('#prog').style.width = p + '%';
+  $('#pct').textContent = p + '% dibaca';
+}
+addEventListener('scroll', progress);
+
+const go = d => { const i = cur + d; if (articles[i]) location.hash = articles[i].id; else if (cur < 0 && d > 0) location.hash = articles[0].id; };
+$('#prev').onclick = () => go(-1);
+$('#next').onclick = () => go(1);
+
+$('#searchForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const k = $('#q').value.trim().toLowerCase();
+  if (!k) return location.hash = 'home';
+  const tmp = document.createElement('div');
+  const hits = articles.filter(a => { tmp.innerHTML = a.body; return (a.title+' '+a.desc+' '+tmp.textContent).toLowerCase().includes(k); });
+  document.querySelectorAll('aside a').forEach(l => l.classList.remove('active'));
+  content.innerHTML = `<h2 class="sec" style="margin-top:0">Hasil untuk “${k.replace(/</g,'&lt;')}”</h2>` +
+    (hits.length ? `<div class="grid">${hits.map(card).join('')}</div>` : `<p class="empty">Tidak ada artikel yang cocok.</p>`);
+  setPlayer('Hasil pencarian', hits.length + ' artikel ditemukan', '🔍');
+});
+
+const route = () => render(location.hash.slice(1) || 'home');
+addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
